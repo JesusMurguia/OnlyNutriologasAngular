@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="col-sm-6 mx-auto">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h1 class="text-center">
+            <span class="fa fa-sign-in"></span>SignUp
+          </h1>
+
+          <div  *ngIf="showError" id="alertNutriologo" class="alert alert-danger">
+            <h6>{{errorMessage}}</h6>
+          </div>
+          <form id="formNutriologo" >
+              <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input [(ngModel)]="nutriologo.nombre" type="text" name="nombre" class="form-control" required/>
+                </div>
+            <div class="form-group">
+              <label  for="edad">Edad</label>
+              <input [(ngModel)]="nutriologo.edad" type="number" name="edad" class="form-control" min="18" required />
+            </div>
+            <div class="form-group">
+              <label for="genero">Genero</label>
+              <input  [(ngModel)]="nutriologo.genero" type="text" name="genero" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input [(ngModel)]="nutriologo.email" type="email" name="email" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input [(ngModel)]="nutriologo.password" type="password" name="password" class="form-control" required/>
+            </div>
+            <button (click)="onSubmit()" class="btn btn-dark btn-lg">SignUp</button>
+          </form>
+
+          <hr />
+          <div class="text-center">
+            <p>have an account?<a routerLink="/login"> Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
