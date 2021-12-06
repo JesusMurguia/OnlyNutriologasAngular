@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let cliente of clientes">
+        <!-- clientes -->
+        <div class="card">
+            <img class="card-img-top" src="../../../assets/avatar.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title " id="p-nombre">Nombre: {{cliente.nombre}}</h5>
+              <p class="card-text" id="p-edad">Edad: {{cliente.edad}}</p>
+              <p class="card-text" id="p-genero">Genero: {{cliente.genero}}</p>
+              <p class="card-text" id="p-peso">Peso: {{cliente.peso}}</p>
+              <p class="card-text" id="p-estatura">Estatura: {{cliente.estatura}}</p>
+              <a href="#" class="btn btn-primary btn-block">Contactar</a>
+        </div>
+    </div>
+</div>

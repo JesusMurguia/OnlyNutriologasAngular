@@ -1,6 +1,6 @@
 export class Nutriologo {
     constructor(
-        public _id: string,
+      public _id: string,
       public token: string,
       public nombre: string,
       public genero: string,

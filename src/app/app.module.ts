@@ -15,6 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS} from "@auth0/angular-jwt";
 import { NutriologoComponent } from './components/signup/nutriologo/nutriologo.component';
 import { PacienteComponent } from './components/signup/paciente/paciente.component';
+import { ClientesComponent } from './components/home/clientes/clientes.component';
+import { DietasComponent } from './components/home/dietas/dietas.component';
+import { CardDeckComponent } from './components/card-deck/card-deck.component';
+import { CardDetailsComponent } from './components/card-details/card-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +28,10 @@ import { PacienteComponent } from './components/signup/paciente/paciente.compone
     NavbarComponent,
     NutriologoComponent,
     PacienteComponent,
+    ClientesComponent,
+    DietasComponent,
+    CardDeckComponent,
+    CardDetailsComponent,
   ],
   imports: [
     BrowserModule,

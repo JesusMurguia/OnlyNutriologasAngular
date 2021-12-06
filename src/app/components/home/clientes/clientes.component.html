@@ -1,0 +1,39 @@
+<div class="container">
+      <h1 class="text-center mt-1">Clientes <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#clienteForm" id="addCliente">
+      <i class="fa fa-plus "></i>
+      </button></h1>
+      <!-- card deck -->
+      <app-card-deck [clientes]="clientes"></app-card-deck>
+
+      <section>
+        <div class="modal fade" id="clienteForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <!-- alert -->
+                    <div *ngIf="errorMessage" class="alert alert-danger" role="alert" id="alert-cliente" >
+                        <strong>Error!</strong> {{errorMessage}}
+                    </div>
+                    <div *ngIf="successMessage" class="alert alert-success" role="alert" id="alert-cliente" >
+                        <strong>Exito!</strong> {{successMessage}}
+                    </div>
+                <form id="formCliente">
+                  <div class="form-group">
+                    <label for="correo">Correo Electronico</label>
+                    <input [(ngModel)]="cliente.email" name="email" type="text" class="form-control" id="correo" placeholder="correo">
+                  </div>
+                  <div class="form-header">
+                    <button type="button" class="btn btn-primary btn-block" id="btnBuscar" (click)="addCliente()">Añadir</button>
+                  </div>
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+      </section>

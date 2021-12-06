@@ -39,8 +39,5 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  mostrarAlerta():boolean{
-    return true;
-  }
 }
 

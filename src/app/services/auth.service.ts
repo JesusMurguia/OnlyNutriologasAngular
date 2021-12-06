@@ -34,8 +34,8 @@ export class AuthService {
 
   getNutriologo(){
     const token = localStorage.getItem('token')!
-    const decoded = decode(token)
-    return decoded as Nutriologo
+    const decoded:Nutriologo = decode(token)
+    return this.http.get<Nutriologo>(`${this.URL}nutriologo/${decoded._id}`)
   }
 
   isAuthenticated(){
@@ -50,4 +50,19 @@ export class AuthService {
     localStorage.removeItem('token')
     this.router.navigate(['login'])
   }
+
+  getClientes(){
+    return this.http.get(`${this.URL}cliente`)
+  }
+
+  addClienteNutriologo(idCliente:string,idNutriologo:string){
+    return this.http.post(`${this.URL}nutriologo/cliente`,{idCliente,idNutriologo})
+  }
+
+  getCliente(_id:string){
+    return this.http.get(`${this.URL}cliente/${_id}`)
+  }
+
 }
+
+
