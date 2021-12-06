@@ -24,7 +24,7 @@
                   <i class="fa fa-list fa-4x"></i>
                 </div>
                 <h6 class="text-uppercase">Dietas</h6>
-                <h1 class="display-1">{{numDietas}}</h1>
+                <h1 class="display-1">{{dietas.length}}</h1>
               </div>
             </div>
           </div>
@@ -41,7 +41,6 @@
           </div>
           
 </div>
-
 <hr/>
 
 <div class="container d-flex justify-content-center">
@@ -50,5 +49,8 @@
     (updateNutriologo)="receiveNutriologo($event)">
     ></app-clientes>
     <app-dietas *ngIf="dietasActive"
+    [nutriologo]="nutriologo"
+    [clientes]="clientes"
+    [dietas]="dietas"
     ></app-dietas>
 </div>

@@ -63,6 +63,22 @@ export class AuthService {
     return this.http.get(`${this.URL}cliente/${_id}`)
   }
 
+  getDieta(_id:string){
+    return this.http.get(`${this.URL}dieta/${_id}`)
+  }
+
+  getComida(_id:string){
+    return this.http.get(`${this.URL}comida/${_id}`)
+  }
+
+  addDieta(dieta:any){
+    return this.http.post(`${this.URL}dieta`,dieta)
+  }
+
+  addDietaNutriologo(dieta:any){
+    return this.http.post(`${this.URL}nutriologo/dieta`,dieta)
+  }
+
 }
 
 

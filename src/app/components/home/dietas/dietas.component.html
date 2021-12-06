@@ -1,1 +1,197 @@
-<p>dietas works!</p>
+<div class="container">
+    <div class="row mb-2 justify-content-center">
+      <h1 class="text-center mt-1">Dietas <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dietaForm" id="addButton">
+        <i class="fa fa-plus "></i>
+        </button></h1>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        
+      </div>
+          <table id="dietas-table" class="table table-hover table-bordered ">
+            <thead>
+              <tr>
+                <th scope="col">Cliente</th>
+                <th scope="col">Fecha de Inicio</th>
+                <th scope="col">Fecha de Fin</th>
+                <th scope="col">Calorias</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody id="dietas-table-body">
+              <tr *ngFor="let item of dietas">
+                <td>{{item.cliente.nombre}}</td>
+                <td>{{formatDate(item.dieta.inicioFecha)}}</td>
+                <td>{{formatDate(item.dieta.finFecha)}}</td>
+                <td>{{item.dieta.caloriasDia}}</td>
+                <td class="d-flex justify-content-center ">
+                  <button type="button" class="btn btn-primary" 
+                  data-toggle="modal" data-target="#editDietaForm"
+                  (click)="editDieta(item)">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  &nbsp; &nbsp; 
+                  <button type="button" class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </button>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+
+
+
+  
+<section>
+    <!-- Modal add dieta-->
+  <div class="modal fade" id="dietaForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Dieta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="numCalorias">Numero de Calorias</label>
+              <input  [(ngModel)]="dieta.caloriasDia" name="calorias" type="number" class="form-control" id="numCalorias" aria-describedby="calories" placeholder="1000" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaInicio">Fecha de Inicio</label>
+              <input  [(ngModel)]="dieta.inicioFecha" name="fechainicio" type="date" class="form-control" id="fechaInicio" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaFin">Fecha de Fin</label>
+              <input  [(ngModel)]="dieta.finFecha" name="fechafin" type="date" class="form-control" id="fechaFin" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label for="cliente">Cliente</label>
+              <select class="form-control" id="cliente-dropdown" name="clientedropdown"  [(ngModel)]="dieta.clienteId">
+                <option *ngFor="let cliente of clientes" value={{cliente._id}}>{{cliente.nombre}}</option>
+              </select>
+
+              <!-- success alert -->
+              <div class="alert alert-success mt-5" *ngIf="showSuccess">
+                <strong>Exito!</strong> Dieta registrada.
+              </div>
+            <button type="button" class="btn btn-primary mt-5" (click)="addDieta()">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+  
+
+
+<section>
+  <!-- Modal edit dieta-->
+  <div class="modal fade" id="editDietaForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Editar Dieta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="numCalorias">Numero de Calorias</label>
+              <input [(ngModel)]="dieta.caloriasDia" name="caloriasDia" type="number" class="form-control" id="numCalorias1" aria-describedby="calories" placeholder="1000">
+            </div>
+            <div class="form-group">
+              <label for="fechaInicio">Fecha de Inicio</label>
+              <ngx-datepicker  name="inicioFecha" [(ngModel)]="dieta.inicioFecha" class="form-control"></ngx-datepicker>
+            </div>
+            <div class="form-group">
+              <label for="fechaFin">Fecha de Fin</label>
+              <ngx-datepicker  id="datepickerfin" name="finFecha" [(ngModel)]="dieta.finFecha"class="form-control"></ngx-datepicker>
+            </div>
+            <div class="form-group">
+              <label for="numCalorias">Cliente</label>
+              <input [(ngModel)]="dieta.cliente" name="cliente" type="text" class="form-control" id="cliente" aria-describedby="cliente" readonly>
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+            </div>
+          </form>
+          <section id="comidas-body">
+            <h5 class="text-center mt-1">Comidas <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#comidaForm" id="addButtonComida">
+              <i class="fa fa-plus"></i>
+            </button></h5>
+            <table id="comidas-table" class="table table-hover table-bordered ">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">Dia</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Opciones</th>
+                </tr>
+              </thead>
+              <tbody id="comidas-table-body">
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+
+
+
+<section>
+  <!-- Modal add comida-->
+  <div class="modal fade" id="comidaForm" tabindex="-2" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Agregar Comida</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="nombreComida">Nombre</label>
+              <input type="text" class="form-control" id="nombreComida" aria-describedby="comida" placeholder="nombre">
+            </div>
+            <div class="form-group">
+              <label for="descripcionComida">Descripcion</label>
+              <input type="text" class="form-control" id="descripcionComida" aria-describedby="comida" placeholder="descripcion">
+            </div>
+            <div class="form-group">
+              <label for="tipoComida">Tipo</label>
+              <select class="form-control" id="tipoComida">
+                <option value="DESAYUNO">Desayuno</option>
+                <option value="ALMUERZO">Almuerzo</option>
+                <option value="CENA">Cena</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dia">Dia</label>
+              <select class="form-control" id="dia-dropdown">
+                <option value="LUNES">Lunes</option>
+                <option value="MARTES">Martes</option>
+                <option value="MIERCOLES">Miercoles</option>
+                <option value="JUEVES">Jueves</option>
+                <option value="VIERNES">Viernes</option>
+                <option value="SABADO">Sabado</option>
+                <option value="DOMINGO">Domingo</option>
+              </select>
+              <button type="button" class="btn btn-primary mt-5" id="btnGuardarComida">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

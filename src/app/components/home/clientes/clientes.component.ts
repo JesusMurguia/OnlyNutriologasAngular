@@ -26,13 +26,16 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnChanges(){
-    this.nutriologo?.clientes.forEach((cliente: any)=>{ 
-      this.authService.getCliente(cliente).subscribe(
-        (data:any) => {
-          this.clientes.push(data);
-        }
-      )
-    });
+    if(this.nutriologo){
+      this.clientes=[];
+      this.nutriologo?.clientes.forEach((cliente: any)=>{ 
+        this.authService.getCliente(cliente).subscribe(
+          (data:any) => {
+            this.clientes.push(data);
+          }
+        )
+      });
+    }
   }
 
   ngOnInit(): void {

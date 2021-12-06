@@ -17,8 +17,8 @@ import { NutriologoComponent } from './components/signup/nutriologo/nutriologo.c
 import { PacienteComponent } from './components/signup/paciente/paciente.component';
 import { ClientesComponent } from './components/home/clientes/clientes.component';
 import { DietasComponent } from './components/home/dietas/dietas.component';
+import { DatepickerModule } from 'ng2-datepicker';
 import { CardDeckComponent } from './components/card-deck/card-deck.component';
-import { CardDetailsComponent } from './components/card-details/card-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,13 +31,13 @@ import { CardDetailsComponent } from './components/card-details/card-details.com
     ClientesComponent,
     DietasComponent,
     CardDeckComponent,
-    CardDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DatepickerModule
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

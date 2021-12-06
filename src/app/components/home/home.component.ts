@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
 import { Nutriologo } from 'src/app/models/nutriologo';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,14 +9,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+  clientes:any[]=[];
+  dietas:any[]=[];
   numClientes:number=0;
   numDietas:number=0;
   numComidas:number=0;
   nombre:string="nombreusuario";
   nutriologo!: Nutriologo;
 
-  clientesActive:boolean=true;
-  dietasActive:boolean=false;
+  clientesActive:boolean=false;
+  dietasActive:boolean=true;
 
   receiveNutriologo(nutriologo: Nutriologo){
     this.nutriologo=nutriologo;
@@ -28,11 +29,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-
     this.authService.getNutriologo().subscribe(
       (nutriologo: Nutriologo) => {
         this.nutriologo = nutriologo;
@@ -40,9 +39,34 @@ export class HomeComponent implements OnInit {
         this.numDietas = nutriologo.dietas.length;
         this.nombre = nutriologo.nombre;
       }
-    );
-
+    ).add(()=>{
+      if(this.nutriologo){
+        this.clientes=[];
+        this.nutriologo?.clientes.forEach((cliente: any)=>{ 
+          
+          this.authService.getCliente(cliente).subscribe(
+            (data:any) => {
+              this.clientes.push(data);
+              data.dietas.forEach((dieta:any)=>{
+                let tmpcliente = data;
+                this.authService.getDieta(dieta).subscribe(
+                  (data:any) => {
+                    this.numComidas += data.comidas.length;
+                    this.dietas.push({  
+                      cliente: tmpcliente,
+                      dieta: data
+                    });
+                  }
+                )
+              });
+            }
+          )
+        });
+      }
+    });
   }
+
+
 
   handleNav(nav:string){
     switch(nav){
