@@ -118,7 +118,11 @@
             <div class="form-group">
               <label for="numCalorias">Cliente</label>
               <input [(ngModel)]="dieta.cliente" name="cliente" type="text" class="form-control" id="cliente" aria-describedby="cliente" readonly>
-            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+              <!-- success alert -->
+              <div class="alert alert-success mt-5" *ngIf="showSuccess">
+                <strong>Exito!</strong> Dieta editada.
+              </div>
+            <button type="button"  (click)="editDietaSave()" class="btn btn-primary mt-5">Guardar</button>
             </div>
           </form>
           <section id="comidas-body">

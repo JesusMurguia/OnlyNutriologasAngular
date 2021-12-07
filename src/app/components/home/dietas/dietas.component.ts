@@ -17,6 +17,7 @@ export class DietasComponent implements OnInit {
   showSuccess:boolean=false;
 
   dieta:any={
+    _id:null,
     caloriasDia:0,
     inicioFecha:"",
     finFecha:"",
@@ -65,18 +66,35 @@ export class DietasComponent implements OnInit {
 
   editDieta(item:any){
     this.dieta={
+      _id:item.dieta._id,
       caloriasDia:item.dieta.caloriasDia,
       inicioFecha: Date.parse(item.dieta.inicioFecha),
       finFecha: Date.parse(item.dieta.finFecha),
       clienteId:item.cliente._id,
       cliente:item.cliente.nombre,
     }
-    console.log(item);
   }
 
 
-
-
+  editDietaSave(){
+    this.authService.editDieta(this.dieta._id,{
+      caloriasDia:this.dieta.caloriasDia,
+      inicioFecha:this.dieta.inicioFecha,
+      finFecha:this.dieta.finFecha,
+    }).subscribe(
+      res=>{
+        this.showSuccess=true;
+        this.dietas.forEach((dieta,index)=>{
+          if(dieta.dieta._id==this.dieta._id){
+            this.dietas[index].dieta.caloriasDia=this.dieta.caloriasDia;
+            this.dietas[index].dieta.inicioFecha=this.dieta.inicioFecha;
+            this.dietas[index].dieta.finFecha=this.dieta.finFecha;
+            this.dietas[index].cliente=this.clientes.find(cliente=>cliente._id==this.dieta.clienteId);
+          }
+        });
+        this.sendNutriologo(this.nutriologo);
+      });
+    }
 
   formatDate(date:string){
     const options:any = {

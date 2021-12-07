@@ -79,6 +79,10 @@ export class AuthService {
     return this.http.post(`${this.URL}nutriologo/dieta`,dieta)
   }
 
+  editDieta(_id:string,dieta:any){
+    return this.http.put(`${this.URL}dieta/${_id}`,dieta)
+  }
+
 }
 
 
