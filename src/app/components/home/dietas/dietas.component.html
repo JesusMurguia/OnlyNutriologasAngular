@@ -139,6 +139,19 @@
                 </tr>
               </thead>
               <tbody id="comidas-table-body">
+                <tr *ngFor="let c of dieta.comidasList">
+                  <td>{{c.dia}}</td>
+                  <td>{{c.nombre}}</td>
+                  <td>{{c.tipoComida}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary">
+                      <i class="fa fa-edit"></i>
+                    </button>&nbsp; &nbsp;
+                    <button type="button" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </section>
@@ -166,15 +179,15 @@
           <form>
             <div class="form-group">
               <label for="nombreComida">Nombre</label>
-              <input type="text" class="form-control" id="nombreComida" aria-describedby="comida" placeholder="nombre">
+              <input [(ngModel)]="comida.nombre" name="nombre"type="text" class="form-control" id="nombreComida" aria-describedby="comida" placeholder="nombre">
             </div>
             <div class="form-group">
               <label for="descripcionComida">Descripcion</label>
-              <input type="text" class="form-control" id="descripcionComida" aria-describedby="comida" placeholder="descripcion">
+              <input [(ngModel)]="comida.descripcion"  name="descripcion" type="text" class="form-control" id="descripcionComida" aria-describedby="comida" placeholder="descripcion">
             </div>
             <div class="form-group">
               <label for="tipoComida">Tipo</label>
-              <select class="form-control" id="tipoComida">
+              <select [(ngModel)]="comida.tipoComida"  name="tipoComida" class="form-control" id="tipoComida">
                 <option value="DESAYUNO">Desayuno</option>
                 <option value="ALMUERZO">Almuerzo</option>
                 <option value="CENA">Cena</option>
@@ -182,7 +195,7 @@
             </div>
             <div class="form-group">
               <label for="dia">Dia</label>
-              <select class="form-control" id="dia-dropdown">
+              <select [(ngModel)]="comida.dia"  name="dia" class="form-control" id="dia-dropdown">
                 <option value="LUNES">Lunes</option>
                 <option value="MARTES">Martes</option>
                 <option value="MIERCOLES">Miercoles</option>
@@ -191,7 +204,11 @@
                 <option value="SABADO">Sabado</option>
                 <option value="DOMINGO">Domingo</option>
               </select>
-              <button type="button" class="btn btn-primary mt-5" id="btnGuardarComida">Guardar</button>
+              <!-- success alert -->
+              <div class="alert alert-success mt-5" *ngIf="showSuccessComida">
+                <strong>Exito!</strong> Comida registrada.
+              </div>
+              <button type="button" class="btn btn-primary mt-5" id="btnGuardarComida" (click)="addComida()">Guardar</button>
             </div>
           </form>
         </div>

@@ -47,10 +47,11 @@
     <app-clientes *ngIf="clientesActive"
     [nutriologo]="nutriologo"
     (updateNutriologo)="receiveNutriologo($event)">
-    ></app-clientes>
+    </app-clientes>
     <app-dietas *ngIf="dietasActive"
     [nutriologo]="nutriologo"
     [clientes]="clientes"
     [dietas]="dietas"
+    (updateComida)="receiveComida($event)"
     ></app-dietas>
 </div>

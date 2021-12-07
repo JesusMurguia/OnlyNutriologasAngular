@@ -66,7 +66,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
+  receiveComida(comida:number){
+    this.numComidas = comida;
+  }
 
   handleNav(nav:string){
     switch(nav){

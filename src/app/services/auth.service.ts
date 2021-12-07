@@ -82,7 +82,14 @@ export class AuthService {
   editDieta(_id:string,dieta:any){
     return this.http.put(`${this.URL}dieta/${_id}`,dieta)
   }
+  
+  addComida(comida:any){
+    return this.http.post(`${this.URL}comida`,comida)
+  }
 
+  addComidaDieta(comida:any){
+    return this.http.post(`${this.URL}dieta/comida`,comida)
+  }
 }
 
 

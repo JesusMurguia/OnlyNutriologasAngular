@@ -12,16 +12,27 @@ export class DietasComponent implements OnInit {
   @Input() dietas:any[]=[];
   @Input() clientes:any[]=[];
 
-  @Output() updateNutriologo = new EventEmitter<Nutriologo>();
+  @Output() updateComida = new EventEmitter<number>();
 
   showSuccess:boolean=false;
+  showSuccessComida:boolean=false;
 
   dieta:any={
     _id:null,
+    comidas:[],
     caloriasDia:0,
     inicioFecha:"",
     finFecha:"",
     clienteId:"",
+    comidasList:[],
+  }
+
+  comida:any={
+    nombre:"",
+    descripcion:"",
+    dia:"",
+    tipoComida:"",
+    evidencia:"evidencia.jpeg",
   }
 
   constructor(
@@ -33,8 +44,8 @@ export class DietasComponent implements OnInit {
 
   ngOnChanges(){
   }
-  sendNutriologo(nutriologo: Nutriologo){
-    this.updateNutriologo.emit(nutriologo);
+  sendComida(comida: number){
+    this.updateComida.emit(comida);
   }
 
 
@@ -58,13 +69,15 @@ export class DietasComponent implements OnInit {
             }
           );
           this.nutriologo.dietas=this.dietas;
-          this.sendNutriologo(this.nutriologo);
+          
         }
       )
     })
   }
 
   editDieta(item:any){
+    this.showSuccess=false;
+    let comidasList: any[]=[];
     this.dieta={
       _id:item.dieta._id,
       caloriasDia:item.dieta.caloriasDia,
@@ -72,7 +85,17 @@ export class DietasComponent implements OnInit {
       finFecha: Date.parse(item.dieta.finFecha),
       clienteId:item.cliente._id,
       cliente:item.cliente.nombre,
+      comidas: item.dieta.comidas,
+      comidasList:comidasList
     }
+
+    
+    this.dieta.comidas.forEach((comida:string)=>{
+      this.authService.getComida(comida).subscribe((comida:any)=>{
+        this.dieta.comidasList.push(comida);
+      })
+    })
+    
   }
 
 
@@ -92,8 +115,27 @@ export class DietasComponent implements OnInit {
             this.dietas[index].cliente=this.clientes.find(cliente=>cliente._id==this.dieta.clienteId);
           }
         });
-        this.sendNutriologo(this.nutriologo);
       });
+    }
+
+
+    addComida(){
+      this.authService.addComida(this.comida).subscribe((comida:any)=>{
+        this.dieta.comidas.push(comida._id);
+        this.dieta.comidasList.push(comida);
+        this.authService.addComidaDieta({
+          idDieta:this.dieta._id,
+          idComida:comida._id
+        }).subscribe(
+          res=>{
+            let numComidas=0;
+          this.dietas.forEach((dieta)=>{
+            numComidas+=dieta.dieta.comidas.length;
+          });
+          this.sendComida(numComidas);
+            this.showSuccessComida=true;
+          })
+      })
     }
 
   formatDate(date:string){
